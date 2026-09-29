@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Misal Hub — Promo Video</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=Poppins:wght@400;500;600;700;800&display=swap');
+
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+  html, body {
+    width: 100%; height: 100%;
+    background: #000;
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+  }
+
+  /* ── STAGE ── */
+  #stage {
+    width: 1280px; height: 720px;
+    position: relative;
+    overflow: hidden;
+    background: #000;
+    /* center on any screen */
+    transform-origin: top left;
+  }
+
+  /* ── SCENES ── */
+  .scene {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.9s ease;
+  }
+  .scene.active { opacity: 1; pointer-events: auto; }
+
+  /* ══════════════════════════════════════════
+     SCENE 1 — TITLE / OPENING
+  ══════════════════════════════════════════ */
+  #s1 {
+    background: radial-gradient(ellipse at 60% 40%, #3a1200 0%, #1a0600 60%, #0a0200 100%);
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* floating spice particles */
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0;
+    animation: rise var(--d,6s) var(--delay,0s) ease-in infinite;
+  }
+  @keyframes rise {
+    0%   { opacity:0; transform: translateY(0) scale(0.5); }
+    20%  { opacity:0.7; }
+    80%  { opacity:0.4; }
+    100% { opacity:0; transform: translateY(-400px) scale(1.5) rotate(180deg); }
+  }
+
+  .s1-center { text-align: center; position: relative; z-index: 2; }
+
+  .s1-logo-bowl {
+    font-size: 7rem;
+    display: block;
+    animation: bowlPop 1s cubic-bezier(0.34,1.56,0.64,1) 0.3s both;
+    filter: drop-shadow(0 0 40px rgba(255,100,20,0.7));
+  }
+  @keyframes bowlPop {
+    from { opacity:0; transform: scale(0.2) rotate(-20deg); }
+    to   { opacity:1; transform: scale(1) rotate(0deg); }
+  }
+
+  .s1-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 5.5rem;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1;
+    margin: 10px 0 6px;
+    animation: fadeUp 0.9s ease 0.8s both;
+  }
+  .s1-title span { color: #FF6B1A; }
+
+  .s1-sub {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.55);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    animation: fadeUp 0.9s ease 1.1s both;
+  }
+
+  .s1-tagline {
+    margin-top: 28px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-style: italic;
+    color: #FFB347;
+    animation: fadeUp 0.9s ease 1.4s both;
+  }
+
+  .s1-divider {
+    width: 120px; height: 2px;
+    background: linear-gradient(90deg, transparent, #FF6B1A, transparent);
+    margin: 18px auto;
+    animation: expandW 1s ease 1.7s both;
+  }
+  @keyframes expandW {
+    from { width: 0; opacity:0; }
+    to   { width: 120px; opacity:1; }
+  }
+
+  .s1-location {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 2px;
+    animation: fadeUp 0.9s ease 2s both;
+  }
+
+  /* ══════════════════════════════════════════
+     SCENE 2 — COOKING
+  ══════════════════════════════════════════ */
+  #s2 {
+    background: linear-gradient(160deg, #1a0800 0%, #2d1200 50%, #1a0800 100%);
+    display: flex; align-items: center;
+    padding: 0 80px;
+    gap: 60px;
+  }
+
+  .s2-left { flex: 1; }
+  .s2-right { flex: 1.2; display:flex; align-items:center; justify-content:center; position:relative; }
+
+  .s2-label {
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #FF6B1A;
+    font-weight: 700;
+    animation: fadeUp 0.7s ease 0.2s both;
+  }
+  .s2-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.2rem;
+    color: #fff;
+    line-height: 1.2;
+    margin: 10px 0 20px;
+    animation: fadeUp 0.7s ease 0.4s both;
+  }
+  .s2-title em { color: #FF6B1A; font-style:italic; }
+
+  .s2-step {
+    display: flex; align-items: center; gap: 14px;
+    margin-bottom: 14px;
+    animation: fadeLeft 0.6s ease both;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,107,26,0.15);
+    border-radius: 12px;
+    padding: 12px 18px;
+  }
+  .s2-step:nth-child(1) { animation-delay: 0.6s; }
+  .s2-step:nth-child(2) { animation-delay: 0.8s; }
+  .s2-step:nth-child(3) { animation-delay: 1.0s; }
+  .s2-step:nth-child(4) { animation-delay: 1.2s; }
+
+  @keyframes fadeLeft {
+    from { opacity:0; transform: translateX(-30px); }
+    to   { opacity:1; transform: translateX(0); }
+  }
+
+  .step-icon { font-size: 1.8rem; flex-shrink:0; }
+  .step-text strong { display:block; color:#fff; font-size:0.9rem; }
+  .step-text span { color:rgba(255,255,255,0.45); font-size:0.75rem; }
+
+  /* kadai / pot */
+  .kadai-wrap { position:relative; }
+  .kadai {
+    width: 300px; height: 280px;
+    background: linear-gradient(160deg, #2a1a0a, #1a0a00);
+    border-radius: 20px 20px 60px 60px;
+    border: 3px solid #3d2010;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6), inset 0 2px 10px rgba(255,150,50,0.1);
+  }
+  .curry-surface {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 70%;
+    background: linear-gradient(180deg, #c43a00 0%, #8b2200 100%);
+    border-radius: 0 0 57px 57px;
+    animation: curryBubble 2s ease-in-out infinite;
+  }
+  @keyframes curryBubble {
+    0%,100% { height: 70%; }
+    50% { height: 72%; }
+  }
+
+  .bubble {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,200,100,0.6);
+    animation: bubbleUp var(--bd, 2s) var(--bdelay,0s) ease-in-out infinite;
+  }
+  @keyframes bubbleUp {
+    0%   { transform: translateY(0) scale(0.5); opacity:0.8; }
+    100% { transform: translateY(-60px) scale(1.5); opacity:0; }
+  }
+
+  .spice-float {
+    position: absolute;
+    font-size: 1.4rem;
+    animation: spiceDrop var(--sd,3s) var(--sdelay,0s) ease-in infinite;
+    opacity: 0;
+  }
+  @keyframes spiceDrop {
+    0%   { opacity:0; transform: translateY(-80px) rotate(0deg); }
+    30%  { opacity:1; }
+    70%  { opacity:1; transform: translateY(60px) rotate(180deg); }
+    100% { opacity:0; transform: translateY(100px) rotate(360deg); }
+  }
+
+  /* steam lines */
+  .steam {
+    position: absolute;
+    width: 4px;
+    background: linear-gradient(180deg, transparent, rgba(255,255,255,0.15), transparent);
+    border-radius: 4px;
+    animation: steamRise var(--st,3s) var(--stdelay,0s) ease-in-out infinite;
+    opacity: 0;
+  }
+  @keyframes steamRise {
+    0%   { opacity:0; transform: translateY(0) scaleX(1); height:30px; }
+    50%  { opacity:0.6; transform: translateY(-80px) scaleX(1.5); height:60px; }
+    100% { opacity:0; transform: translateY(-160px) scaleX(0.5); height:20px; }
+  }
+
+  /* ══════════════════════════════════════════
+     SCENE 3 — PLATING
+  ══════════════════════════════════════════ */
+  #s3 {
+    background: linear-gradient(135deg, #2E170B, #3B1E0F);
+    display: flex; align-items: center;
+    padding: 0 80px;
+    gap: 60px;
+  }
+
+  .s3-right { flex: 1; }
+  .s3-left  { flex: 1; display:flex; align-items:center; justify-content:center; }
+
+  .s3-label { font-size: 0.75rem; letter-spacing:3px; text-transform:uppercase; color:#E8520A; font-weight:700; animation: fadeUp 0.7s ease 0.2s both; }
+  .s3-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.2rem; color:#FF8A1F; line-height:1.2;
+    margin: 10px 0 20px;
+    animation: fadeUp 0.7s ease 0.4s both;
+  }
+  .s3-title em { color:#E8520A; font-style:italic; }
+
+  .topping-row {
+    display: flex; flex-wrap:wrap; gap:10px;
+    animation: fadeUp 0.7s ease 0.6s both;
+  }
+  .topping-chip {
+    background: #4B2913;
+    border: 1px solid rgba(255,138,31,0.3);
+    border-radius: 50px;
+    padding: 7px 16px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #FF8A1F;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+  }
+
+  /* bowl illustration */
+  .bowl-scene { position:relative; }
+
+  .plate-outer {
+    width: 320px; height: 320px;
+    background: radial-gradient(circle, #5E3519, #3B1E0F);
+    border-radius: 50%;
+    display: flex; align-items:center; justify-content:center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15), inset 0 4px 20px rgba(255,255,255,0.5);
+    position: relative;
+    animation: plateReveal 1s cubic-bezier(0.34,1.56,0.64,1) 0.3s both;
+  }
+  @keyframes plateReveal {
+    from { opacity:0; transform: scale(0.4) rotate(-15deg); }
+    to   { opacity:1; transform: scale(1) rotate(0deg); }
+  }
+
+  .bowl-inner {
+    width: 220px; height: 220px;
+    background: linear-gradient(160deg, #c43a00, #8b2200);
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 10px 30px rgba(0,0,0,0.3);
+    display: flex; align-items:center; justify-content:center;
+  }
+  .curry-top {
+    position: absolute; inset:0;
+    background: linear-gradient(180deg, #d44500 0%, #8b2200 100%);
+    border-radius: 50%;
+  }
+  .farsan-layer {
+    position: absolute;
+    bottom: 25%; left: 10%; right:10%;
+    height: 30%;
+    background: linear-gradient(180deg, #d4a017, #a67c00);
+    border-radius: 50% 50% 30% 30%;
+    opacity: 0;
+    animation: farsanDrop 0.5s ease 1.2s both;
+  }
+  @keyframes farsanDrop {
+    from { opacity:0; transform:translateY(-30px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+  .bowl-emoji-top {
+    position: absolute;
+    font-size: 2.5rem;
+    animation: fadeUp 0.5s ease 1.5s both;
+  }
+
+  /* lemon squeeze effect */
+  .lemon-drop {
+    position: absolute;
+    font-size: 2.2rem;
+    top: -10px; right: 20px;
+    animation: lemonSqueeze 1.5s ease 1.8s both;
+  }
+  @keyframes lemonSqueeze {
+    0%   { opacity:0; transform: translateY(-40px) rotate(-30deg); }
+    50%  { opacity:1; transform: translateY(10px) rotate(10deg); }
+    75%  { transform: translateY(0) rotate(-5deg) scale(1.2); }
+    100% { opacity:1; transform: translateY(0) rotate(0deg) scale(1); }
+  }
+
+  /* pav beside bowl */
+  .pav-pair {
+    position: absolute;
+    bottom: -10px; right: -40px;
+    animation: pavSlide 0.8s ease 2.1s both;
+  }
+  @keyframes pavSlide {
+    from { opacity:0; transform: translateX(40px); }
+    to   { opacity:1; transform: translateX(0); }
+  }
+  .pav-item {
+    width: 90px; height: 55px;
+    background: linear-gradient(180deg, #f5d485, #e8b850);
+    border-radius: 50% 50% 20px 20px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    display: flex; align-items:center; justify-content:center;
+    font-size: 1.5rem;
+    margin-bottom: 6px;
+  }
+
+  /* drip drops (lemon juice) */
+  .juice-drop {
+    position: absolute;
+    width: 6px; height: 10px;
+    background: rgba(200,230,50,0.7);
+    border-radius: 0 0 50% 50%;
+    animation: juiceFall var(--jd,0.8s) var(--jdelay,2s) ease-in both;
+    opacity: 0;
+  }
+  @keyframes juiceFall {
+    0%   { opacity:1; transform: translateY(-20px); }
+    100% { opacity:0; transform: translateY(40px); }
+  }
+
+  /* ══════════════════════════════════════════
+     SCENE 4 — PEOPLE EATING
+  ══════════════════════════════════════════ */
+  #s4 {
+    background: linear-gradient(145deg, #1a0800 0%, #2a1005 100%);
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column;
+    padding: 60px 80px;
+    gap: 0;
+  }
+
+  .s4-header { text-align:center; margin-bottom: 40px; }
+  .s4-label { font-size:0.75rem; letter-spacing:3px; text-transform:uppercase; color:#FF6B1A; font-weight:700; animation: fadeUp 0.7s ease 0.2s both; }
+  .s4-title { font-family:'Playfair Display',serif; font-size:2.8rem; color:#fff; animation: fadeUp 0.7s ease 0.4s both; }
+  .s4-title em { color:#FFB347; font-style:italic; }
+
+  .customers-row {
+    display: flex; gap:28px; align-items: flex-end; justify-content: center;
+  }
+
+  .customer-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,107,26,0.2);
+    border-radius: 20px;
+    padding: 28px 24px;
+    text-align: center;
+    animation: cardPop 0.7s cubic-bezier(0.34,1.56,0.64,1) both;
+    position: relative;
+    overflow: hidden;
+  }
+  .customer-card::before {
+    content:'';
+    position:absolute; top:0; left:0; right:0; height:3px;
+    background: linear-gradient(90deg, #FF6B1A, #FFB347);
+  }
+  .customer-card:nth-child(1) { animation-delay:0.5s; width:220px; }
+  .customer-card:nth-child(2) { animation-delay:0.7s; width:260px; transform-origin: bottom center; }
+  .customer-card:nth-child(3) { animation-delay:0.9s; width:220px; }
+  .customer-card:nth-child(4) { animation-delay:1.1s; width:220px; }
+
+  @keyframes cardPop {
+    from { opacity:0; transform: translateY(50px) scale(0.8); }
+    to   { opacity:1; transform: translateY(0) scale(1); }
+  }
+  .customer-card.big { background: rgba(255,107,26,0.12); border-color: rgba(255,107,26,0.4); }
+
+  .cust-avatar { font-size:3rem; margin-bottom:8px; animation: avatarBob 2s ease-in-out infinite; }
+  .cust-avatar.delay1 { animation-delay: 0.3s; }
+  .cust-avatar.delay2 { animation-delay: 0.6s; }
+  .cust-avatar.delay3 { animation-delay: 0.9s; }
+  @keyframes avatarBob {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  .cust-bowl { font-size:1.8rem; margin-bottom:6px; }
+  .cust-name { color:#fff; font-weight:700; font-size:0.88rem; }
+  .cust-loc { color:rgba(255,255,255,0.4); font-size:0.72rem; }
+  .cust-stars { font-size:0.8rem; margin: 6px 0; }
+  .cust-quote {
+    font-size:0.75rem;
+    color:rgba(255,255,255,0.55);
+    font-style:italic;
+    margin-top:8px;
+    line-height:1.5;
+  }
+
+  /* spice-o-meter */
+  .spice-meter {
+    display: flex; gap:4px; justify-content:center; margin-top:8px;
+  }
+  .chilli { font-size:0.9rem; filter: grayscale(1); transition: filter 0.3s; }
+  .chilli.hot { filter: none; animation: chilliPop 0.4s ease both; }
+  @keyframes chilliPop { from{transform:scale(0);} to{transform:scale(1);} }
+
+  /* ══════════════════════════════════════════
+     SCENE 5 — BRAND ENDING
+  ══════════════════════════════════════════ */
+  #s5 {
+    background: radial-gradient(ellipse at center, #2a0f00 0%, #0d0400 70%, #000 100%);
+    display: flex; align-items:center; justify-content:center;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  /* rings */
+  .ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(255,107,26,0.12);
+    animation: ringPulse var(--rd,4s) var(--rdelay,0s) ease-in-out infinite;
+  }
+  @keyframes ringPulse {
+    0%,100% { transform: scale(1); opacity:0.4; }
+    50% { transform: scale(1.06); opacity:0.1; }
+  }
+
+  .s5-bowl { font-size:8rem; animation: bowlPop 1s cubic-bezier(0.34,1.56,0.64,1) 0.2s both; filter: drop-shadow(0 0 50px rgba(255,107,26,0.5)); }
+
+  .s5-name {
+    font-family:'Playfair Display',serif;
+    font-size:5rem; font-weight:800;
+    color:#fff; letter-spacing:-1px;
+    animation: fadeUp 0.8s ease 0.8s both;
+  }
+  .s5-name span { color:#FF6B1A; }
+
+  .s5-tagline {
+    font-family:'Playfair Display',serif;
+    font-size:1.4rem; font-style:italic;
+    color:#FFB347;
+    animation: fadeUp 0.8s ease 1s both;
+    margin: 6px 0 26px;
+  }
+
+  .s5-divider {
+    width: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, #FF6B1A, transparent);
+    animation: expandW 0.8s ease 1.3s both;
+    margin: 0 auto 24px;
+  }
+
+  .s5-info {
+    display: flex; gap:40px; justify-content:center;
+    animation: fadeUp 0.8s ease 1.5s both;
+  }
+  .s5-info-item { text-align:center; }
+  .s5-info-item .icon { font-size:1.5rem; margin-bottom:4px; }
+  .s5-info-item strong { display:block; color:#fff; font-size:0.88rem; }
+  .s5-info-item small { color:rgba(255,255,255,0.4); font-size:0.72rem; }
+
+  .s5-social {
+    display:flex; gap:16px; justify-content:center; margin-top:28px;
+    animation: fadeUp 0.8s ease 1.8s both;
+  }
+  .s5-social a {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,107,26,0.25);
+    border-radius: 50px;
+    padding: 8px 20px;
+    color:rgba(255,255,255,0.7);
+    font-size:0.8rem; font-weight:600;
+    text-decoration:none;
+  }
+
+  /* ── PROGRESS BAR ── */
+  #progressBar {
+    position: fixed;
+    bottom: 0; left: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #FF6B1A, #FFB347);
+    width: 0%;
+    transition: width 0.1s linear;
+    z-index: 100;
+  }
+
+  /* ── CONTROLS ── */
+  #controls {
+    position: fixed;
+    bottom: 20px; left: 50%; transform: translateX(-50%);
+    display: flex; gap:12px; align-items:center;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,107,26,0.3);
+    border-radius: 50px;
+    padding: 10px 24px;
+    z-index: 100;
+  }
+  #controls button {
+    background: none; border:none; color:#fff; cursor:pointer;
+    font-size:1.1rem; padding:4px 8px; border-radius:8px;
+    transition: background 0.2s;
+  }
+  #controls button:hover { background: rgba(255,107,26,0.2); }
+  #controls button.active { background: rgba(255,107,26,0.3); color:#FF6B1A; }
+
+  .scene-dots {
+    display:flex; gap:6px; align-items:center;
+  }
+  .sdot {
+    width:8px; height:8px;
+    border-radius:50%;
+    background: rgba(255,255,255,0.25);
+    cursor:pointer;
+    transition: all 0.3s;
+  }
+  .sdot.active { width:24px; border-radius:4px; background:#FF6B1A; }
+
+  #sceneLabel {
+    font-size:0.75rem; color:rgba(255,255,255,0.5); min-width:80px; text-align:center;
+  }
+
+  /* ── GLOBAL ANIMS ── */
+  @keyframes fadeUp {
+    from { opacity:0; transform: translateY(24px); }
+    to   { opacity:1; transform: translateY(0); }
+  }
+
+  /* ── SCALE STAGE TO FIT ── */
+  #scaleWrap {
+    width:100vw; height:100vh;
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+  }
+</style>
+</head>
+<body>
+
+<div id="scaleWrap">
+<div id="stage">
+
+  <!-- ══ SCENE 1 — TITLE ══ -->
+  <div class="scene active" id="s1">
+    <!-- particles -->
+    <div class="particle" style="width:8px;height:8px;background:#FF6B1A;left:10%;top:80%;--d:7s;--delay:0s;"></div>
+    <div class="particle" style="width:5px;height:5px;background:#FFB347;left:20%;top:85%;--d:5s;--delay:1s;"></div>
+    <div class="particle" style="width:10px;height:10px;background:#c43a00;left:35%;top:90%;--d:8s;--delay:0.5s;"></div>
+    <div class="particle" style="width:6px;height:6px;background:#FF6B1A;left:55%;top:88%;--d:6s;--delay:1.5s;"></div>
+    <div class="particle" style="width:4px;height:4px;background:#FFB347;left:70%;top:83%;--d:7s;--delay:0.3s;"></div>
+    <div class="particle" style="width:9px;height:9px;background:#c43a00;left:85%;top:90%;--d:5s;--delay:2s;"></div>
+    <div class="particle" style="width:7px;height:7px;background:#FF6B1A;left:45%;top:85%;--d:9s;--delay:0.8s;"></div>
+    <div class="particle" style="width:5px;height:5px;background:#FFB347;left:78%;top:92%;--d:6s;--delay:1.2s;"></div>
+
+    <div class="s1-center">
+      <span class="s1-logo-bowl">🍛</span>
+      <div class="s1-title">Misal<span>Hub</span></div>
+      <div class="s1-sub">Mira Road East · Since 2018</div>
+      <div class="s1-tagline">"Every Bowl Tells a Spicy Story"</div>
+      <div class="s1-divider"></div>
+      <div class="s1-location">📍 Shop 2/3, Silver Cassia Apartment, Mira Road East</div>
+    </div>
+  </div>
+
+  <!-- ══ SCENE 2 — COOKING ══ -->
+  <div class="scene" id="s2">
+    <div class="s2-left">
+      <div class="s2-label">Behind the Magic</div>
+      <div class="s2-title">Cooked Fresh,<br/><em>Every Morning</em></div>
+      <div class="s2-step">
+        <span class="step-icon">🫘</span>
+        <div class="step-text">
+          <strong>Overnight Sprouting</strong>
+          <span>Fresh matki & mixed sprouts soaked nightly</span>
+        </div>
+      </div>
+      <div class="s2-step">
+        <span class="step-icon">🌶️</span>
+        <div class="step-text">
+          <strong>Secret Masala Blend</strong>
+          <span>12 hand-ground spices, family recipe</span>
+        </div>
+      </div>
+      <div class="s2-step">
+        <span class="step-icon">🔥</span>
+        <div class="step-text">
+          <strong>Slow Cooked Gravy</strong>
+          <span>Simmered on high flame for deep flavour</span>
+        </div>
+      </div>
+      <div class="s2-step">
+        <span class="step-icon">🧈</span>
+        <div class="step-text">
+          <strong>Buttery Fresh Pav</strong>
+          <span>Toasted on iron tawa with real butter</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="s2-right">
+      <!-- steam above pot -->
+      <div class="steam" style="left:110px;top:20px;height:50px;--st:3s;--stdelay:0s;"></div>
+      <div class="steam" style="left:150px;top:10px;height:70px;--st:4s;--stdelay:0.5s;"></div>
+      <div class="steam" style="left:190px;top:20px;height:45px;--st:3.5s;--stdelay:1s;"></div>
+
+      <!-- spices falling in -->
+      <div class="spice-float" style="left:120px;--sd:3.5s;--sdelay:0.3s;">🌶️</div>
+      <div class="spice-float" style="left:180px;--sd:4s;--sdelay:1s;">🧅</div>
+      <div class="spice-float" style="left:230px;--sd:3s;--sdelay:1.8s;">🍅</div>
+      <div class="spice-float" style="left:160px;--sd:4.5s;--sdelay:2.5s;">🫛</div>
+
+      <div class="kadai-wrap">
+        <div class="kadai">
+          <div class="curry-surface">
+            <!-- bubbles -->
+            <div class="bubble" style="width:12px;height:12px;left:30%;bottom:10%;--bd:1.8s;--bdelay:0s;"></div>
+            <div class="bubble" style="width:8px;height:8px;left:55%;bottom:5%;--bd:2.2s;--bdelay:0.4s;"></div>
+            <div class="bubble" style="width:14px;height:14px;left:70%;bottom:15%;--bd:1.6s;--bdelay:0.8s;"></div>
+            <div class="bubble" style="width:6px;height:6px;left:20%;bottom:20%;--bd:2s;--bdelay:1.2s;"></div>
+            <div class="bubble" style="width:10px;height:10px;left:45%;bottom:8%;--bd:2.4s;--bdelay:0.6s;"></div>
+          </div>
+        </div>
+        <!-- ladle handle -->
+        <div style="position:absolute;top:30px;right:-10px;width:6px;height:120px;background:linear-gradient(180deg,#888,#555);border-radius:3px;transform:rotate(-20deg);box-shadow:2px 2px 8px rgba(0,0,0,0.5);"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SCENE 3 — PLATING ══ -->
+  <div class="scene" id="s3">
+    <div class="s3-left">
+      <div class="bowl-scene">
+        <div class="plate-outer">
+          <div class="bowl-inner">
+            <div class="curry-top"></div>
+            <div class="farsan-layer"></div>
+            <div class="bowl-emoji-top">🌿</div>
+          </div>
+        </div>
+        <div class="lemon-drop">🍋</div>
+        <div class="pav-pair">
+          <div class="pav-item">🍞</div>
+          <div class="pav-item" style="width:80px;height:48px;margin-left:10px;"></div>
+        </div>
+        <!-- juice drops -->
+        <div class="juice-drop" style="left:68%;top:30%;--jd:0.6s;--jdelay:2.2s;"></div>
+        <div class="juice-drop" style="left:72%;top:28%;--jd:0.8s;--jdelay:2.4s;"></div>
+        <div class="juice-drop" style="left:65%;top:32%;--jd:0.7s;--jdelay:2.6s;"></div>
+      </div>
+    </div>
+
+    <div class="s3-right">
+      <div class="s3-label">The Perfect Bowl</div>
+      <div class="s3-title">Plated with<br/><em>Precision & Love</em></div>
+      <div class="topping-row">
+        <div class="topping-chip">🫘 Sprouted Matki</div>
+        <div class="topping-chip">✨ Crunchy Farsan</div>
+        <div class="topping-chip">🧅 Fresh Onions</div>
+        <div class="topping-chip">🍋 Lemon Squeeze</div>
+        <div class="topping-chip">🌿 Coriander</div>
+        <div class="topping-chip">🟢 Green Chutney</div>
+        <div class="topping-chip">🧈 Buttered Pav</div>
+        <div class="topping-chip">🌶️ Extra Spice</div>
+      </div>
+
+      <div style="margin-top:30px;padding:20px 24px;background:rgba(232,82,10,0.06);border:1px solid rgba(232,82,10,0.2);border-radius:16px;animation:fadeUp 0.7s ease 1s both;">
+        <div style="font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;color:#E8520A;font-weight:700;margin-bottom:6px;">Available In</div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <span style="background:#fff4f0;color:#c43a00;border:1px solid #ffc8b0;padding:6px 16px;border-radius:50px;font-size:0.82rem;font-weight:600;">😊 Mild</span>
+          <span style="background:#ffe8d6;color:#c43a00;border:1px solid #ffaa70;padding:6px 16px;border-radius:50px;font-size:0.82rem;font-weight:600;">🌶️ Medium</span>
+          <span style="background:#ffd0b0;color:#8b0000;border:1px solid #ff6b1a;padding:6px 16px;border-radius:50px;font-size:0.82rem;font-weight:600;">🔥 Spicy</span>
+          <span style="background:#1a0000;color:#ff4400;border:1px solid #ff2200;padding:6px 16px;border-radius:50px;font-size:0.82rem;font-weight:600;">💀 Extra Hot</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SCENE 4 — PEOPLE ══ -->
+  <div class="scene" id="s4">
+    <div class="s4-header">
+      <div class="s4-label">Our Happy Customers</div>
+      <div class="s4-title">Loved <em>Every Day</em></div>
+    </div>
+
+    <div class="customers-row">
+      <div class="customer-card">
+        <div class="cust-avatar">😄</div>
+        <div class="cust-bowl">🍛</div>
+        <div class="cust-name">Rahul Sharma</div>
+        <div class="cust-loc">📍 Mira Road East</div>
+        <div class="cust-stars">⭐⭐⭐⭐⭐</div>
+        <div class="spice-meter">
+          <span class="chilli hot" style="animation-delay:1.5s">🌶️</span>
+          <span class="chilli hot" style="animation-delay:1.7s">🌶️</span>
+          <span class="chilli hot" style="animation-delay:1.9s">🌶️</span>
+        </div>
+        <div class="cust-quote">"Best Misal in Mira Road, no contest!"</div>
+      </div>
+
+      <div class="customer-card big">
+        <div class="cust-avatar delay1">🤩</div>
+        <div class="cust-bowl">🍛</div>
+        <div class="cust-name" style="font-size:1rem;">Priya Patil</div>
+        <div class="cust-loc">📍 Pleasant Park Road</div>
+        <div class="cust-stars" style="font-size:1rem;">⭐⭐⭐⭐⭐</div>
+        <div class="spice-meter">
+          <span class="chilli hot" style="animation-delay:1.6s">🌶️</span>
+          <span class="chilli hot" style="animation-delay:1.8s">🌶️</span>
+          <span class="chilli" style="animation-delay:2s">🌶️</span>
+        </div>
+        <div class="cust-quote" style="font-size:0.82rem;">"Reminds me of authentic Pune Misal. Weekend tradition now!"</div>
+      </div>
+
+      <div class="customer-card">
+        <div class="cust-avatar delay2">😋</div>
+        <div class="cust-bowl">🍛</div>
+        <div class="cust-name">Amit Joshi</div>
+        <div class="cust-loc">📍 Kashimira</div>
+        <div class="cust-stars">⭐⭐⭐⭐⭐</div>
+        <div class="spice-meter">
+          <span class="chilli hot" style="animation-delay:1.7s">🌶️</span>
+          <span class="chilli hot" style="animation-delay:1.9s">🌶️</span>
+          <span class="chilli hot" style="animation-delay:2.1s">🌶️</span>
+        </div>
+        <div class="cust-quote">"Pav Bhaji is 🔥. Great value!"</div>
+      </div>
+
+      <div class="customer-card">
+        <div class="cust-avatar delay3">😍</div>
+        <div class="cust-bowl">☕</div>
+        <div class="cust-name">Sneha Kulkarni</div>
+        <div class="cust-loc">📍 Bhayander West</div>
+        <div class="cust-stars">⭐⭐⭐⭐⭐</div>
+        <div class="spice-meter">
+          <span class="chilli hot" style="animation-delay:1.8s">🌶️</span>
+          <span class="chilli" style="animation-delay:2s">🌶️</span>
+          <span class="chilli" style="animation-delay:2.2s">🌶️</span>
+        </div>
+        <div class="cust-quote">"Cutting chai + Misal = perfect combo!"</div>
+      </div>
+    </div>
+
+    <!-- live ticker -->
+    <div style="margin-top:36px;display:flex;gap:24px;animation:fadeUp 0.7s ease 1.6s both;">
+      <div style="background:rgba(255,107,26,0.1);border:1px solid rgba(255,107,26,0.25);border-radius:12px;padding:12px 24px;text-align:center;">
+        <div style="font-size:1.6rem;font-weight:800;color:#FF6B1A;font-family:'Playfair Display',serif;">2018</div>
+        <div style="font-size:0.72rem;color:rgba(255,255,255,0.4);">Since</div>
+      </div>
+      <div style="background:rgba(255,107,26,0.1);border:1px solid rgba(255,107,26,0.25);border-radius:12px;padding:12px 24px;text-align:center;">
+        <div style="font-size:1.6rem;font-weight:800;color:#FF6B1A;font-family:'Playfair Display',serif;">4.4⭐</div>
+        <div style="font-size:0.72rem;color:rgba(255,255,255,0.4);">Rating</div>
+      </div>
+      <div style="background:rgba(255,107,26,0.1);border:1px solid rgba(255,107,26,0.25);border-radius:12px;padding:12px 24px;text-align:center;">
+        <div style="font-size:1.6rem;font-weight:800;color:#FF6B1A;font-family:'Playfair Display',serif;">8AM–8PM</div>
+        <div style="font-size:0.72rem;color:rgba(255,255,255,0.4);">Working Hours</div>
+      </div>
+      <div style="background:rgba(255,107,26,0.1);border:1px solid rgba(255,107,26,0.25);border-radius:12px;padding:12px 24px;text-align:center;">
+        <div style="font-size:1.6rem;font-weight:800;color:#FF6B1A;font-family:'Playfair Display',serif;">10+</div>
+        <div style="font-size:0.72rem;color:rgba(255,255,255,0.4);">Years Serving</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SCENE 5 — ENDING ══ -->
+  <div class="scene" id="s5">
+    <!-- rings -->
+    <div class="ring" style="width:200px;height:200px;top:50%;left:50%;transform:translate(-50%,-50%);--rd:4s;--rdelay:0s;"></div>
+    <div class="ring" style="width:350px;height:350px;top:50%;left:50%;transform:translate(-50%,-50%);--rd:5s;--rdelay:0.5s;"></div>
+    <div class="ring" style="width:520px;height:520px;top:50%;left:50%;transform:translate(-50%,-50%);--rd:6s;--rdelay:1s;"></div>
+    <div class="ring" style="width:700px;height:700px;top:50%;left:50%;transform:translate(-50%,-50%);--rd:7s;--rdelay:1.5s;"></div>
+
+    <div class="s5-bowl">🍛</div>
+    <div class="s5-name">Misal<span>Hub</span></div>
+    <div class="s5-tagline">"Taste of Maharashtra"</div>
+    <div class="s5-divider"></div>
+
+    <div class="s5-info">
+      <div class="s5-info-item">
+        <div class="icon">📍</div>
+        <strong>Shop 2/3, Silver Cassia Apt.</strong>
+        <small>Pleasant Park Rd, Mira Road East</small>
+      </div>
+      <div class="s5-info-item">
+        <div class="icon">⏰</div>
+        <strong>8:00 AM – 8:00 PM</strong>
+        <small>Open All Days</small>
+      </div>
+      <div class="s5-info-item">
+        <div class="icon">📞</div>
+        <strong>+91 90041 67448</strong>
+        <small>Call or WhatsApp</small>
+      </div>
+    </div>
+
+    <div class="s5-social">
+      <a href="#">📸 Instagram</a>
+      <a href="#">👍 Facebook</a>
+      <a href="#">💬 WhatsApp</a>
+    </div>
+  </div>
+
+</div><!-- /stage -->
+</div><!-- /scaleWrap -->
+
+<!-- progress -->
+<div id="progressBar"></div>
+
+<!-- controls -->
+<div id="controls">
+  <button id="prevBtn" title="Previous">◀</button>
+  <div class="scene-dots">
+    <div class="sdot active" data-scene="0"></div>
+    <div class="sdot" data-scene="1"></div>
+    <div class="sdot" data-scene="2"></div>
+    <div class="sdot" data-scene="3"></div>
+    <div class="sdot" data-scene="4"></div>
+  </div>
+  <button id="playBtn" title="Play/Pause">⏸</button>
+  <button id="nextBtn" title="Next">▶</button>
+  <span id="sceneLabel">Scene 1 / 5</span>
+</div>
+
+<script>
+// ── SCALE STAGE TO FIT SCREEN ──
+function scaleStage() {
+  const stage = document.getElementById('stage');
+  const wrap  = document.getElementById('scaleWrap');
+  const scaleX = wrap.clientWidth  / 1280;
+  const scaleY = wrap.clientHeight / 720;
+  const scale  = Math.min(scaleX, scaleY);
+  stage.style.transform = `scale(${scale})`;
+  stage.style.transformOrigin = 'center center';
+}
+scaleStage();
+window.addEventListener('resize', scaleStage);
+
+// ── SCENE ENGINE ──
+const scenes   = Array.from(document.querySelectorAll('.scene'));
+const dots     = Array.from(document.querySelectorAll('.sdot'));
+const label    = document.getElementById('sceneLabel');
+const bar      = document.getElementById('progressBar');
+const playBtn  = document.getElementById('playBtn');
+const DURATIONS = [7000, 9000, 8000, 9000, 7000]; // ms per scene
+const NAMES     = ['Opening', 'Cooking', 'Plating', 'Customers', 'Ending'];
+
+let current = 0;
+let playing = true;
+let timer   = null;
+let progTimer = null;
+let progStart = null;
+
+function goTo(idx, resetProg = true) {
+  scenes[current].classList.remove('active');
+  dots[current].classList.remove('active');
+  current = (idx + scenes.length) % scenes.length;
+  scenes[current].classList.add('active');
+  dots[current].classList.add('active');
+  label.textContent = `${NAMES[current]}  ${current+1} / ${scenes.length}`;
+
+  // re-trigger animations inside new scene by cloning
+  const s = scenes[current];
+  s.querySelectorAll('[style*="animation"]').forEach(el => {
+    el.style.animation = 'none';
+    void el.offsetHeight;
+    el.style.animation = '';
+  });
+
+  if (resetProg) startProgress();
+}
+
+function startProgress() {
+  clearInterval(progTimer);
+  bar.style.transition = 'none';
+  bar.style.width = '0%';
+  void bar.offsetHeight;
+  const dur = DURATIONS[current];
+  bar.style.transition = `width ${dur}ms linear`;
+  bar.style.width = '100%';
+
+  clearTimeout(timer);
+  if (playing) {
+    timer = setTimeout(() => goTo(current + 1), dur);
+  }
+}
+
+function togglePlay() {
+  playing = !playing;
+  playBtn.textContent = playing ? '⏸' : '▶';
+  if (playing) {
+    startProgress();
+  } else {
+    clearTimeout(timer);
+    bar.style.transition = 'none';
+    // freeze progress
+    const computed = getComputedStyle(bar).width;
+    bar.style.width = computed;
+  }
+}
+
+document.getElementById('playBtn').addEventListener('click', togglePlay);
+document.getElementById('nextBtn').addEventListener('click', () => { playing && clearTimeout(timer); goTo(current + 1); });
+document.getElementById('prevBtn').addEventListener('click', () => { playing && clearTimeout(timer); goTo(current - 1); });
+
+dots.forEach(d => {
+  d.addEventListener('click', () => {
+    clearTimeout(timer);
+    goTo(parseInt(d.dataset.scene));
+  });
+});
+
+// ── CHILLI ANIMATION RESET ON SCENE 4 ──
+function resetChilliAnims() {
+  document.querySelectorAll('.chilli.hot').forEach((c, i) => {
+    c.style.animation = 'none';
+    void c.offsetHeight;
+    c.style.animation = `chilliPop 0.4s ease ${1.5 + i*0.2}s both`;
+  });
+}
+
+// Observe scene 4
+const sc4 = document.getElementById('s4');
+const sc4obs = new MutationObserver(() => {
+  if (sc4.classList.contains('active')) resetChilliAnims();
+});
+sc4obs.observe(sc4, { attributes: true, attributeFilter: ['class'] });
+
+// start
+goTo(0);
+</script>
+</body>
+</html>
